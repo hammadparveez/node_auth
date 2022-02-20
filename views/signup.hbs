@@ -1,53 +1,63 @@
-
 {{!-- -------------------------- --}}
 
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>App</title>
-         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="/style.css">
     <title>Bootstrap 4 Login/Register Form</title>
-      <link rel="stylesheet" href="/stylesheets/style.css">
-  </head>
-  <body>
-<div id="logreg-forms">
-    <!-- Registering User -->
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
 
-    <form action="/signup" class="form-signup" method="post"style="display:block" >
-        <div class="social-login">
-            <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign up
-                    with Facebook</span> </button>
-        </div>
-        <div class="social-login">
-            <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign up
-                    with Google+</span> </button>
-        </div>
+<body>
+    <div id="logreg-forms">
+        <!-- Registering User -->
 
-        <p style="text-align:center">OR</p>
+        <form action="/signup" class="form-signup" method="post" style="display:block">
+            <div class="social-login">
+                <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign
+                        up
+                        with Facebook</span> </button>
+            </div>
+            <div class="social-login">
+                <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign
+                        up
+                        with Google+</span> </button>
+            </div>
 
-        <input type="text" id="user-name" name="username" class="form-control" placeholder="Username" required=""
-            autofocus="">
-        <input type="text" id="user-email" name="email" class="form-control" placeholder="Email address" required
-            autofocus="">
-        <input type="password" id="user-pass" name="password" class="form-control" placeholder="Password" required
-            autofocus="">
-        <input type="password" id="user-repeatpass" name="confirm_password" class="form-control"
-            placeholder="Repeat Password" required autofocus="">
+            <p style="text-align:center">OR</p>
+            <span id="error-msg">{{ invalid }}</span>
+            <input type="text" id="user-name" name="username" class="form-control" placeholder="Username" required=""
+                autofocus="">
+            <input type="text" id="user-email" name="email" class="form-control" placeholder="Email address" required
+                autofocus="">
+            <input type="password" id="user-pass" name="password" class="form-control" placeholder="Password" required
+                autofocus="">
+            <input type="password" id="user-repeatpass" name="confirm_password" class="form-control"
+                placeholder="Repeat Password" required autofocus="">
 
-        <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> Sign Up</button>
-        <a href="/signin" id="cancel_signup"><i class="fas fa-angle-left"></i> Back</a>
-    </form>
-</div>
+            <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> Sign Up</button>
+            <a href="/signin" id="cancel_signup"><i class="fas fa-angle-left"></i> Back</a>
+        </form>
+    </div>
 
-  
- </body>
-  
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<script src="/javascripts/script.js"  crossorigin="anonymous"></script>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+<script src="/javascripts/script.js" crossorigin="anonymous"></script>
+
 </html>
-
-

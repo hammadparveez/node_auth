@@ -92,6 +92,13 @@
     margin: 0 auto;
 }
 
+#error-msg {
+    display: block;
+    color: #e71a49;
+    text-align: center;
+    margin: 10px 10px;
+}
+
 
 /* Mobile */
 
