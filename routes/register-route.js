@@ -6,6 +6,8 @@ let jwt = require('jsonwebtoken');
 const { token } = require("morgan");
 let { randomBytes } = require('crypto');
 let dotenv = require('dotenv');
+let { connection } = require('../config/app_config');
+
 
 dotenv.config({ debug: true });
 ///////////////////////////////////////////////////////////////////
@@ -29,33 +31,35 @@ function authenticationCheck(req, res, next) {
     token ? res.redirect('/') : next();
 }
 
-route.get('/', authenticationCheck, (req, res) => {
-        console.log("Token: ", req.session.token)
-        res.render('index');
-    })
-    .post('/',
+route.get('/', (req, res) => {
+    console.log("Token: ", req.session.token)
+    res.render('signup');
+})
 
-        (req, res) => {
-            let body = req.body;
-            let isAccountCreated = false;
-            if (body.username && body.email && body.password && body.confirm_password) {
-                let isValidEmail = validator.isEmail(body.email)
-                console.log("Email Valid ", isValidEmail);
-                if (isValidEmail) {
-                    jwt.sign(body.username, randomBytes(64), (error, token) => {
-                        console.log('====', token, '====', error, '===== ');
-                        req.session.token = token;
-                        res.redirect("/");
-                    });
+.post('/',
 
-                } else {
-                    res.json({ error: 'Email incorrect' })
-                }
+    (req, res) => {
+        let body = req.body;
+        let isAccountCreated = false;
+        if (body.username && body.email && body.password && body.confirm_password) {
+            let isValidEmail = validator.isEmail(body.email)
+            console.log("Email Valid ", isValidEmail);
+            if (isValidEmail) {
+
+                jwt.sign(body.username, process.env.JWT_SECRET_TOKEN, (error, token) => {
+                    console.log('====', token, '====', error, '===== ');
+                    connection.execute('INSERT INTO user_accounts (username,email,password) VALUES (?,?,?)', [body.username, body.email, body.password], )
+                    res.redirect("/signin");
+                });
+
+            } else {
+                res.json({ error: 'Email incorrect' })
             }
-
         }
-        /*registerController.registerUser*/
-    );
+
+    }
+    /*registerController.registerUser*/
+);
 
 
 module.exports = route;

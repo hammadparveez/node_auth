@@ -2,10 +2,12 @@ const { app } = require('./config/app_config');
 const createError = require('http-errors');
 const registerRouter = require('./routes/register-route');
 const homeRouter = require('./routes/home-router');
+const signInRouter = require('./routes/signin-router');
 
 
 //Application Routes
-app.use('/register', registerRouter);
+app.use('/signup', registerRouter);
+app.use('/signIn', signInRouter);
 app.use('/', homeRouter);
 
 

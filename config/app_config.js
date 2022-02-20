@@ -1,13 +1,23 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var bodyParser = require('body-parser');
+let express = require('express');
+let path = require('path');
+let cookieParser = require('cookie-parser');
+let logger = require('morgan');
+let bodyParser = require('body-parser');
 let bcrypt = require('bcrypt');
 let session = require('express-session');
 let helmet = require('helmet');
-const app = express();
+let app = express();
+let sql = require('mysql2');
+let dotenv = require('dotenv');
 
+
+dotenv.config();
+let connection = sql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DATABASE,
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, '../views'));
@@ -28,4 +38,5 @@ module.exports = {
     cookieParser,
     logger,
     bodyParser,
+    connection,
 };
