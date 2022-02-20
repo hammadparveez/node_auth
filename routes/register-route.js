@@ -6,8 +6,11 @@ let jwt = require('jsonwebtoken');
 const { token } = require("morgan");
 let { randomBytes } = require('crypto');
 let dotenv = require('dotenv');
+let bcrypt = require('bcrypt');
 let { connection } = require('../config/app_config');
-
+let SALT = 10;
+//CREATE ACCOUNT QUERY
+const CREATE_ACCOUNT_QUERY = 'INSERT INTO user_accounts (username,email,password) VALUES (?,?,?)';
 
 dotenv.config({ debug: true });
 ///////////////////////////////////////////////////////////////////
@@ -44,16 +47,33 @@ route.get('/', (req, res) => {
         if (body.username && body.email && body.password && body.confirm_password) {
             let isValidEmail = validator.isEmail(body.email)
             console.log("Email Valid ", isValidEmail);
-            if (isValidEmail) {
+            let isValidUsername = validator.isLength(body.username, { min: 5 });
+            let isValidPassword = validator.isLength(body.username, { min: 8 });
+            let isValidConfirmPassword = validator.isLength(body.username, { min: 8 });
+            if (!isValidUsername) {
+                res.locals.invalid = 'Username invalid';
+                res.render('signup', { invalid: 'Username invalid' });
+            } else if (!isValidEmail) {
+                res.json({ invalid: "Email invalid" });
+            } else if (!isValidPassword) {
+                res.json({ invalid: "Password must be 8 characters " });
+            } else if (!isValidConfirmPassword) {
+                res.json({ invalid: "Confirm Password must be 8 characters " });
+            } else {
 
                 jwt.sign(body.username, process.env.JWT_SECRET_TOKEN, (error, token) => {
+
                     console.log('====', token, '====', error, '===== ');
-                    connection.execute('INSERT INTO user_accounts (username,email,password) VALUES (?,?,?)', [body.username, body.email, body.password], )
-                    res.redirect("/signin");
+                    bcrypt.hash(body.password, SALT).then((hashPassword) => {
+                        console.log("Hash Pass", hashPassword);
+                        connection.execute(CREATE_ACCOUNT_QUERY, [body.username, body.email, hashPassword], )
+                        res.redirect("/signin");
+                    }).catch((error) => {
+                        console.log("Error while Hasing", error);
+                        res.json({ error: error });
+                    })
                 });
 
-            } else {
-                res.json({ error: 'Email incorrect' })
             }
         }
 
