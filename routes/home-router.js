@@ -1,9 +1,16 @@
 const { Router } = require("express");
 
-var route = Router();
+let route = Router();
 
-route.get("/", (req, res) => {
-    res.send("Welcome");
+route.get("/", checkAuthentication, (req, res) => {
+    res.send('Welcome Home');
 })
+
+function checkAuthentication(req, res, next) {
+
+    let token = req.session.token;
+    token ? next() : res.redirect('/register');
+
+}
 
 module.exports = route;
